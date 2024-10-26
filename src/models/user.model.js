@@ -4,13 +4,13 @@ import bcrypt from "bcrypt";
 
 const userSchema=new mongoose.Schema(
     {
-    username:{
+    username:{ 
       type:String,
       required:true,
       unique:true,
       lowercase:true,
       trim:true,
-      index:true, ///Makes the fiels searchable in mongoDb in an optimisable way,even though a little expensive
+      index:true, ///Makes the fields searchable in mongoDb in an optimisable way,even though a little expensive
     },
     email:{
         type:String,
@@ -50,7 +50,7 @@ const userSchema=new mongoose.Schema(
 
 userSchema.pre("save",async function(next){
 //These functions take time and hence a lot of times takes time
-   if(!this.isModified("password")) return next();
+   if(!this.isModified("password")) return next(); //Prevents the rest of the function from executing
 
    this.password=bcrypt.hash(this.password,10);
    next();
